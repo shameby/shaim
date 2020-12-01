@@ -1,0 +1,5 @@
+io_port: 8080
+rpc_port: 8090
+redis_host: localhost:6379
+redis_pwd: orcorc520
+redis_prefix: 0

@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<input type="text" id="join"><button onclick="conn()">conn</button></br>
+<input type="text" id="toName"><input type="text" id="input"><button onclick="send()">send</button>
+<div id="msg"></div>
+</body>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/1.4.1/socket.io.js"></script>
+<script type="text/javascript">
+    var socket = io.connect('http://localhost:8082');
+    function conn(){
+        var el = document.getElementById('join');
+        var value = el.value;
+        socket.emit('join', value);
+    }
+    function send(){
+        var el = document.getElementById('input');
+        var toName = document.getElementById('toName');
+        var value = el.value;
+        var name = toName.value;
+        if (name === "") {
+            socket.emit('msg', value);
+        } else {
+            socket.emit('say', JSON.stringify({'name':name, 'msg':value}))
+        }
+    }
+    socket.on('msg',function(data){
+        var msg = document.getElementById('msg');
+        msg.innerHTML += "<p>"+data+"</p>";
+    });
+
+</script>
+</html>

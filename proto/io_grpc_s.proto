@@ -1,0 +1,31 @@
+syntax = "proto3";
+
+package io;
+
+service io {
+    rpc BroadCast (BcRequest) returns (BcReply) {}
+    rpc Say (SayRequest) returns (SayReply) {}
+}
+
+message BcRequest {
+    string nsp = 1;
+    string room = 2;
+    string msg = 3;
+}
+
+message BcReply {
+    bool suc = 1;
+    string err = 2;
+}
+
+message SayRequest {
+    string nsp = 1;
+    string fromUser = 2;
+    string toUser = 3;
+    string msg = 4;
+}
+
+message SayReply {
+    bool suc = 1;
+    string err = 2;
+}

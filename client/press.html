@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<button onclick="conn()">join</button>
+<button onclick="test()">test</button>
+<div id="msg"></div>
+</body>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/1.4.1/socket.io.js"></script>
+<script type="text/javascript">
+    var socket8080_1 = io.connect('http://localhost:8080');
+    var socket8081_1 = io.connect('http://localhost:8081');
+    var socket8082_1 = io.connect('http://localhost:8082');
+    function conn(){
+        socket8080_1.emit('join', "user1");
+        socket8081_1.emit('join', "user2");
+        socket8082_1.emit('join', "user3");
+    }
+    function test(){
+        for (var i = 0;i < 100;i++) {
+            socket8080_1.emit('msg', "群发测试1");
+            socket8080_1.emit('say', JSON.stringify({'name':"观察者1", 'msg':"单发测试1"}))
+            socket8080_1.emit('say', JSON.stringify({'name':"观察者2", 'msg':"单发测试1"}))
+            socket8080_1.emit('say', JSON.stringify({'name':"观察者3", 'msg':"单发测试1"}))
+        }
+        for (var i = 0;i < 100;i++) {
+            socket8081_1.emit('msg', "群发测试2");
+            socket8081_1.emit('say', JSON.stringify({'name':"观察者1", 'msg':"单发测试2"}))
+            socket8081_1.emit('say', JSON.stringify({'name':"观察者2", 'msg':"单发测试2"}))
+            socket8081_1.emit('say', JSON.stringify({'name':"观察者3", 'msg':"单发测试2"}))
+        }
+        for (var i = 0;i < 100;i++) {
+            socket8082_1.emit('msg', "群发测试3");
+            socket8082_1.emit('say', JSON.stringify({'name':"观察者1", 'msg':"单发测试3"}))
+            socket8082_1.emit('say', JSON.stringify({'name':"观察者2", 'msg':"单发测试3"}))
+            socket8082_1.emit('say', JSON.stringify({'name':"观察者3", 'msg':"单发测试3"}))
+        }
+    }
+    /*socket.on('msg',function(data){
+        var msg = document.getElementById('msg');
+        msg.innerHTML += "<p>"+data+"</p>";
+    });*/
+
+</script>
+</html>
